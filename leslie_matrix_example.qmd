@@ -1,0 +1,56 @@
+---
+title: "Leslie Matrix Example"
+author: "Erica bishop"
+format: html
+editor: visual
+---
+
+##Leslie matrix population model example
+
+Modeling population changes with fly example from lecture
+
+*note: quarto very similar to R markdown, render with knitR or Jupyter notebooks, better at multiple language interoperability*
+
+```{r}
+##practice making a matrix, for 3x3 matrix need to create all nine vectors. can be made all in one step or in two separate steps. One step shown below in nested function
+
+insect_leslie <- matrix(c(0, 0, 600, 0.2, 0, 0, 0, 0.08, 0), 
+                        nrow = 3, 
+                        ncol = 3, 
+                        byrow = TRUE)
+
+insect_leslie
+
+```
+
+```{r}
+##now create initial condition, create vector for values, then can multiply matrix by vectors to solve system
+
+insect_y0 <- c(12000, 700, 500)
+
+###insect_y0 is single column matrix, now can multiply by insect_leslie, can store outputs
+
+insect_y1 <- insect_leslie %*% insect_y0
+
+insect_y1
+```
+
+Now estimate populations at each life stage at y=1, y=2, and y=3. Doing individually but a for loop would do together
+%*% is dot product operator
+
+We now have y1 so use y1 as new initial conidtion for y2
+
+```{r}
+
+insect_y2 <- insect_leslie %*% insect_y1
+
+insect_y2
+```
+
+```{r}
+insect_y3 <- insect_leslie %*% insect_y2
+
+insect_y3
+```
+
+
